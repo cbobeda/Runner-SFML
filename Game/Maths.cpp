@@ -1,13 +1,13 @@
 #include <SFML/Graphics.hpp>
-
+#include "TileManager.h"
 #include "Player.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({200, 200}), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
+    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "SFML works!", sf::State::Fullscreen);
+    window.setFramerateLimit(60);
+    TileManager manager(window);
+    sf::Clock deltaTime;
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -17,7 +17,10 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        manager.drawTiles();
+        manager.update(deltaTime.getElapsedTime().asSeconds());
         window.display();
+
+        deltaTime.restart();
     }
 }
