@@ -80,11 +80,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Library.vcxproj">
       <Project>{43f33caf-de07-4351-b44b-48eefaf9fb6b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
