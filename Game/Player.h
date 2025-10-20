@@ -16,10 +16,12 @@ private:
 	void jump();
 	void gravity();
 
-	float x;
-	float y;
-	float speed;
-	bool jumping;
+	float x = 50.f;
+	float y = 50.f;
+	float speed = 1.f;
+	sf::Time timejump;
+	bool jumping = false;
+	bool onground = true;
 
 	sf::RectangleShape hitbox;
 	void controle(int input);
