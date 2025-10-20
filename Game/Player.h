@@ -22,7 +22,9 @@ private:
 	sf::Time timejump;
 	bool jumping = false;
 	bool onground = true;
-
+	box boxs[1];
+	sf::FloatRect getBounds() const;
+	bool collidesWith(const sf::FloatRect& rect) const;
 	sf::RectangleShape hitbox;
 	void controle(int input);
 
@@ -36,3 +38,25 @@ Player::~Player()
 {
 }
 
+
+
+//temporaire =====================================================================================================================================================
+
+class box
+{
+public:
+	box();
+	~box();
+	sf::RectangleShape hitbox;
+
+private:
+	sf::FloatRect getBounds() const;
+};
+
+box::box()
+{
+}
+
+box::~box()
+{
+}
