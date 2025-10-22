@@ -21,20 +21,21 @@ void Player::dash(){
 
 }
 
-void Player::jump() {
-	if (onground) {
+void Player::jump(float deltaTime) {
+	if (y < 20)jumping = false;
+	if (onground || jumping) {
 		onground = false;
 		jumping = true;
-		//monter le y pendant un temps et passer onground a false puis 
-
+		y -= 100 * deltaTime;//monter le y pendant un temps et passer onground a false puis
 	}
+	 
 } 
 
 
-void Player::controle(int input) {
+void Player::controle(int input, float deltaTime) {
 	if (input == 1)
 	{
-		jump();
+		jump(deltaTime);
 	}
 	else if (input == 2) {
 		dash();
@@ -44,15 +45,16 @@ void Player::controle(int input) {
 	}
 }
 
-void Player::gravity() {
+void Player::gravity(float deltaTime) {
+	const float gravitySpeed = 100.0f;
 
-	if (!onground)
-	{
+	if (!onground) {
 		if (!jumping) {
-			y -= 1;
+			y += gravitySpeed * deltaTime;
 		}
 	}
-};
+}
+
 sf::FloatRect Player::getBounds() const {
 	return hitbox.getGlobalBounds();
 }
@@ -65,7 +67,11 @@ bool Player::collidesWith(const sf::FloatRect& rect) const {
 		(A.position.y + A.size.y > rect.position.y);
 }
 
-void Player::update(sf::RenderWindow& window,  std::vector<soltemp> sol) {
+void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<soltemp> sol) {
+	if(jumping)
+		hitbox.setFillColor(sf::Color::Red);
+	else
+		hitbox.setFillColor(sf::Color::Green);
 
 	for (auto& b : sol) {
 		b.update(window);
@@ -75,13 +81,15 @@ void Player::update(sf::RenderWindow& window,  std::vector<soltemp> sol) {
 			exit;
 		}
 	}
-	gravity();
+	gravity(deltaTime);
 	if (sf::Mouse::isButtonPressed)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-			controle(1);
+			controle(1, deltaTime);
+		else
+			jumping = false;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
-			controle(2);
+			controle(2, deltaTime);
 	}
 	hitbox.setPosition({ x, y });
 	window.draw(hitbox);

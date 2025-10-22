@@ -10,8 +10,10 @@ int main()
     shape.setFillColor(sf::Color::Green);
     std::vector<soltemp> sol = { {0, 70}, {20, 70} , {40, 70} };
     Player player;
+    sf::Clock clock;
     while (window.isOpen())
     {
+        float deltaTime = clock.restart().asSeconds();
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -19,7 +21,7 @@ int main()
         }
         
         window.clear();
-        player.update(window, sol);
+        player.update(window, deltaTime, sol);
         window.display();
     }
 }

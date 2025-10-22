@@ -12,7 +12,6 @@ public:
 	sf::FloatRect getBounds() const;
 
 private:
-	
 	float x;
 	float y;
 };

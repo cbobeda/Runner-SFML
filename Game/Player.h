@@ -9,13 +9,13 @@ public:
 	~Player();
 	float getx();
 	float gety();
-	void update(sf::RenderWindow& window, std::vector<soltemp> sol);
+	void update(sf::RenderWindow& window, float deltaTim, std::vector<soltemp> sol);
 	
 private:
 
 	void dash(); 
-	void jump();
-	void gravity();
+	void jump(float deltaTime);
+	void gravity(float deltaTim);
 
 	float x = 50.f;
 	float y = 50.f;
@@ -26,6 +26,6 @@ private:
 	sf::FloatRect getBounds() const;
 	bool collidesWith(const sf::FloatRect& rect) const;
 	sf::RectangleShape hitbox;
-	void controle(int input);
+	void controle(int input, float deltaTime);
 
 };
