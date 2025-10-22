@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="soltemp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Library.vcxproj">
@@ -89,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="soltemp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

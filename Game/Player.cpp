@@ -1,13 +1,15 @@
 #include "Player.h"
+
 #include<vector>
 
-sf::FloatRect box::getBounds() const { return hitbox.getGlobalBounds(); }
-
-
 Player::Player(){
-	hitbox = sf::RectangleShape({ 50, 50 });
+	hitbox = sf::RectangleShape({ 10, 10 });
+	hitbox.setFillColor(sf::Color::Green);
 	hitbox.setPosition({ x, y });
+}
 
+Player::~Player()
+{
 }
 
 float Player::getx() { return x;}
@@ -43,14 +45,13 @@ void Player::controle(int input) {
 }
 
 void Player::gravity() {
-	if (true)//!(player collide sol)
+
+	if (!onground)
 	{
 		if (!jumping) {
 			y -= 1;
 		}
 	}
-	else { onground = true;}
-
 };
 sf::FloatRect Player::getBounds() const {
 	return hitbox.getGlobalBounds();
@@ -64,7 +65,17 @@ bool Player::collidesWith(const sf::FloatRect& rect) const {
 		(A.position.y + A.size.y > rect.position.y);
 }
 
-void Player::update(){
+void Player::update(sf::RenderWindow& window,  std::vector<soltemp> sol) {
+
+	for (auto& b : sol) {
+		b.update(window);
+		if (collidesWith(b.getBounds()))
+		{
+			onground = true;
+			exit;
+		}
+	}
+	gravity();
 	if (sf::Mouse::isButtonPressed)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
@@ -72,9 +83,8 @@ void Player::update(){
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 			controle(2);
 	}
-
-	
-	//si perso contact avec le sol onground = true
+	hitbox.setPosition({ x, y });
+	window.draw(hitbox);
 }
 
 
