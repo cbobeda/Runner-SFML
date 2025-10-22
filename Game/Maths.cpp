@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "LevelGenerator.h"
 #include "TileManager.h"
 #include "Player.h"
 
@@ -8,6 +9,10 @@ int main()
     window.setFramerateLimit(60);
     TileManager manager(window);
     sf::Clock deltaTime;
+    sf::Music m;
+    m.openFromFile("assets/music/test.ogg");
+    m.setLooping(true);
+    m.play();
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())

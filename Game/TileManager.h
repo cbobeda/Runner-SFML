@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Tile.h"
+#include "LevelGenerator.h"
 class TileManager
 {
 	public:
@@ -11,6 +12,7 @@ class TileManager
 		void drawTiles();
 
 	private:
+		LevelGenerator generation;
 		sf::RenderWindow* win;
 		const float tileWidth = 60.f;
 		std::vector<Tile> tileVector;
