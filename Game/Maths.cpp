@@ -3,6 +3,7 @@
 #include "TileManager.h"
 #include "Player.h"
 #include "soltemp.h"
+#include "SaveManager.h"
 
 int main()
 {
@@ -12,6 +13,10 @@ int main()
     sf::Text title(neon, "Runner", 70);
     sf::Text instruction(neon, "Press SPACE to start", 30);
     sf::Text pauseText(neon, "PAUSED", 30);
+    sf::Text scoreText(neon, "score", 30);
+
+    SaveManager sav;
+    int score = sav.getSavedCoins();
 
     sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "SFML works!", sf::State::Fullscreen);
 
@@ -82,6 +87,8 @@ int main()
         {
             window.clear();
             manager.drawTiles();
+            scoreText.setString("Score : " + std::to_string(score));
+            window.draw(scoreText);
             player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
             manager.update(deltaTime.getElapsedTime().asSeconds());
             window.display();
@@ -90,4 +97,6 @@ int main()
 
 
     }
+
+    sav.savecoins(score);
 }
