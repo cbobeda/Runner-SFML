@@ -81,6 +81,8 @@
   <ItemGroup>
     <ClCompile Include="LevelGenerator.cpp" />
     <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="soltemp.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
   </ItemGroup>
@@ -88,6 +90,10 @@
     <ProjectReference Include="..\Library\Library.vcxproj">
       <Project>{43f33caf-de07-4351-b44b-48eefaf9fb6b}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="soltemp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelGenerator.h" />
