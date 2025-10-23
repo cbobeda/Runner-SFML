@@ -32,10 +32,8 @@ int main()
     m.setLooping(true);
     std::vector<soltemp> sol = { {0, 70}, {20, 70} , {40, 70} };
     Player player;
-    sf::Clock clock;
     while (window.isOpen())
     {
-        float deltaTime = clock.restart().asSeconds();
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -84,7 +82,7 @@ int main()
         {
             window.clear();
             manager.drawTiles();
-            player.update(window, deltaTime, sol);
+            player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
             manager.update(deltaTime.getElapsedTime().asSeconds());
             window.display();
             deltaTime.restart();
