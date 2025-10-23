@@ -1,12 +1,12 @@
 #include "Coins.h"
 
-Coins::Coins(std::string filePath, float x, float y)
+Coins::Coins(std::string filePath, float x, float y) : cointexture(std::make_shared<sf::Texture>())
 {
-	if (!cointexture.loadFromFile(filePath))
+	if (!cointexture->loadFromFile(filePath))
 	{
 		std::cout << "Error while loading tile texture" << std::endl;
 	}
-	sprite = std::make_shared<sf::Sprite>(cointexture);
+	sprite = std::make_shared<sf::Sprite>(*cointexture);
 	sprite->setScale(sf::Vector2f(0.05f, 0.05f));
 	sprite->setPosition(sf::Vector2f(x, y));
 }
@@ -18,7 +18,6 @@ void Coins::update(float deltaTime, float speed)
 
 void Coins::draw(sf::RenderWindow& window)
 {
-	sprite->setTexture(cointexture);
 	window.draw(*sprite);
 }
 

@@ -3,14 +3,14 @@
 #include "Tile.h"
 
 
-Tile::Tile(std::string filePath, float x, float y)
+Tile::Tile(std::string filePath, float x, float y) : texture(std::make_shared<sf::Texture>())
 {
-	if (!texture.loadFromFile(filePath))
+	if (!texture->loadFromFile(filePath))
 	{
 		std::cout << "Error while loading tile texture" << std::endl;
 	}
 
-	sprite = std::make_shared<sf::Sprite>(texture);
+	sprite = std::make_shared<sf::Sprite>(*texture);
 	sprite->setScale(sf::Vector2f(0.5f, 0.1f));
 	sprite->setPosition(sf::Vector2f(x, y));
 }

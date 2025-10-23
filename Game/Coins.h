@@ -11,7 +11,7 @@ class Coins
 		void draw(sf::RenderWindow& window);
 		std::shared_ptr<sf::Sprite> getSprite();
 	private:
-		sf::Texture cointexture;
+		std::shared_ptr <sf::Texture> cointexture;
 		std::shared_ptr<sf::Sprite> sprite;
 
 };

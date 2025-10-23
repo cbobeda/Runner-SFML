@@ -13,7 +13,7 @@ class Tile
 		std::shared_ptr<sf::Sprite> getSprite();
 
 	private:
-		sf::Texture texture;
+		std::shared_ptr <sf::Texture> texture;
 		std::shared_ptr<sf::Sprite> sprite;
 
 
