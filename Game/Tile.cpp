@@ -11,7 +11,6 @@ Tile::Tile(std::string filePath, float x, float y)
 	}
 
 	sprite = std::make_shared<sf::Sprite>(texture);
-	sprite->setTexture(texture);
 	sprite->setScale(sf::Vector2f(0.5f, 0.1f));
 	sprite->setPosition(sf::Vector2f(x, y));
 }

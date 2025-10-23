@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Coins.cpp" />
     <ClCompile Include="LevelGenerator.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -93,6 +94,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coins.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SaveManager.h" />
     <ClInclude Include="soltemp.h" />

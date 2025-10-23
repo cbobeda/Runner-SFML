@@ -3,10 +3,14 @@
 
 TileManager::TileManager(sf::RenderWindow& window) : win(&window)
 {
-
+	srand(time(0));
 	tileVector.reserve(generation.getTime().size());
+	int random;
 	for (auto& time : generation.getTime())
 	{
+		random = rand() % 4;
+		if (random == 0)
+			coinVector.emplace_back("assets/map/coin.png", (time * tileWidth * 5) + 120.f , generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5 - 60.f);
 		tileVector.emplace_back("assets/map/tile.png", time * tileWidth * 5, generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5);
 	}
 }
@@ -17,6 +21,10 @@ void TileManager::drawTiles()
 	{
 		tile.draw(*win);
 	}
+	for (auto& coin : coinVector)
+	{
+		coin.draw(*win);
+	}
 }
 
 void TileManager::update(float deltaTime)
@@ -24,6 +32,10 @@ void TileManager::update(float deltaTime)
 	for (auto& tile : tileVector)
 	{
 		tile.update(deltaTime, 3000.f);
+	}
+	for (auto& coin : coinVector)
+	{
+		coin.update(deltaTime, 3000.f);
 	}
 
 
