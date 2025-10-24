@@ -95,7 +95,6 @@ int main()
             deltaTime.restart();
         }
 
-
     }
 
     sav.savecoins(score);
