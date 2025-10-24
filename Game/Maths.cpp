@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <thread>
 #include "LevelGenerator.h"
 #include "TileManager.h"
 #include "Player.h"
@@ -9,6 +10,11 @@ int main()
 {
     bool isHome = true;
     bool isPause = false;
+
+    float fps;
+    float currentTime = 1.f;
+    float lastTime = 2.f;
+
     sf::Font neon("assets/font/Neon.ttf");
     sf::Text title(neon, "Runner", 70);
     sf::Text instruction(neon, "Press SPACE to start", 30);
@@ -24,7 +30,7 @@ int main()
     instruction.setPosition(sf::Vector2f(window.getSize().x / 2 - instruction.getLocalBounds().size.x / 2, window.getSize().y / 2 - instruction.getLocalBounds().size.y / 2 + 100));
     pauseText.setPosition(sf::Vector2f(window.getSize().x / 2 - pauseText.getLocalBounds().size.x / 2, window.getSize().y / 2 - pauseText.getLocalBounds().size.y / 2));
 
-    window.setFramerateLimit(60);
+
     TileManager manager(window);
 
 
@@ -90,9 +96,20 @@ int main()
             scoreText.setString("Score : " + std::to_string(score));
             window.draw(scoreText);
             player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
-            manager.update(deltaTime.getElapsedTime().asSeconds());
+            window.setActive(false);
+            std::thread t1(&TileManager::update,&manager,deltaTime.getElapsedTime().asSeconds());
+            t1.join();
+            window.setActive(true);
             window.display();
-            deltaTime.restart();
+
+
+            //fps calculation
+            currentTime = deltaTime.restart().asSeconds();
+            fps = 1.f / (currentTime - lastTime);
+            lastTime = currentTime;
+
+            std::cout << fps << "\n";
+
         }
 
     }

@@ -1,12 +1,8 @@
 #include "Coins.h"
 
-Coins::Coins(std::string filePath, float x, float y) : cointexture(std::make_shared<sf::Texture>())
+Coins::Coins(std::shared_ptr<sf::Texture> texture, float x, float y)
 {
-	if (!cointexture->loadFromFile(filePath))
-	{
-		std::cout << "Error while loading tile texture" << std::endl;
-	}
-	sprite = std::make_shared<sf::Sprite>(*cointexture);
+	sprite = std::make_shared<sf::Sprite>(*texture);
 	sprite->setScale(sf::Vector2f(0.05f, 0.05f));
 	sprite->setPosition(sf::Vector2f(x, y));
 }

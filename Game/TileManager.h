@@ -21,5 +21,8 @@ class TileManager
 		std::vector<Coins> coinVector;
 		sf::Clock colorClock;
 
+		std::shared_ptr<sf::Texture> tileText;
+		std::shared_ptr<sf::Texture> coinText;
+
 };
 
