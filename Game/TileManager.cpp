@@ -53,6 +53,14 @@ void TileManager::update(float deltaTime)
 			}
 			// placer la tuile recyclée directement à droite de la tuile la plus à droite
 			tile.getSprite()->setPosition(sf::Vector2f(maxX + static_cast<float>(tileWidth) * 5,tile.getSprite()->getPosition().y));
+			int random;
+			random = rand() % 4;
+			if (random == 0)
+				coinVector.emplace_back("assets/map/coin.png", (maxX + static_cast<float>(tileWidth) * 5) + 120.f, (tile.getSprite()->getPosition().y) - 60.f);
 		}
 	}
+	std::erase_if(coinVector, [](Coins& c) {
+		std::shared_ptr<sf::Sprite> spr = c.getSprite();
+		return spr && spr->getPosition().x <= -10.f;
+		});
 }
