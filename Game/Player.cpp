@@ -17,7 +17,7 @@ float Player::gety() { return y;}
 
 void Player::dash(){
 	return;
-//augmenter la speed total
+	//augmenter la speed total
 
 }
 

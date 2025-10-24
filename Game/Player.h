@@ -16,6 +16,8 @@ private:
 	void dash(); 
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
+	float velocity;
+	float speed;
 
 	float x = 50.f;
 	float y = 50.f;
