@@ -19,6 +19,7 @@ class TileManager
 		const float tileWidth = 60.f;
 		std::vector<Tile> tileVector;
 		std::vector<Coins> coinVector;
+		sf::Clock colorClock;
 
 };
 

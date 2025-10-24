@@ -12,6 +12,7 @@ TileManager::TileManager(sf::RenderWindow& window) : win(&window)
 		if (random == 0)
 			coinVector.emplace_back("assets/map/coin.png", (time * tileWidth * 5) + 120.f , generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5 - 60.f);
 		tileVector.emplace_back("assets/map/tile.png", time * tileWidth * 5, generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5);
+		tileVector.back().getSprite()->setColor(sf::Color(std::sinf(time) * 127 + 127, std::cosf(time) * 127 + 127, std::sinf(time + 3.14159265359) * 127 + 127));
 	}
 }
 
@@ -53,6 +54,7 @@ void TileManager::update(float deltaTime)
 			}
 			// placer la tuile recyclée directement à droite de la tuile la plus à droite
 			tile.getSprite()->setPosition(sf::Vector2f(maxX + static_cast<float>(tileWidth) * 5,tile.getSprite()->getPosition().y));
+			tile.getSprite()->setColor(sf::Color(std::sinf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::cosf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::sinf(colorClock.getElapsedTime().asSeconds() + 3.14159265359) * 127 + 127));
 			int random;
 			random = rand() % 4;
 			if (random == 0)
