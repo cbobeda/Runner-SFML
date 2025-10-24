@@ -26,7 +26,7 @@ void Tile::draw(sf::RenderWindow& window)
 	window.draw(*sprite);
 }
 
-std::shared_ptr<sf::Sprite> Tile::getSprite()
+std::shared_ptr<sf::Sprite> Tile::getSprite() const
 {
 	return sprite;
 }

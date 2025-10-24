@@ -23,7 +23,7 @@ void TileManager::update(float deltaTime)
 {
 	for (auto& tile : tileVector)
 	{
-		tile.update(deltaTime, 3000.f);
+		tile.update(deltaTime, 1000.f);
 	}
 
 
@@ -44,3 +44,5 @@ void TileManager::update(float deltaTime)
 		}
 	}
 }
+
+const std::vector<Tile>& TileManager::getVector() const { return tileVector; }

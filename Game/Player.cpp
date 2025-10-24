@@ -26,7 +26,7 @@ void Player::jump(float deltaTime) {
 	if (onground || jumping) {
 		onground = false;
 		jumping = true;
-		y -= 100 * deltaTime;//monter le y pendant un temps et passer onground a false puis
+		y -= 300 * deltaTime;
 	}
 	 
 } 
@@ -46,7 +46,7 @@ void Player::controle(int input, float deltaTime) {
 }
 
 void Player::gravity(float deltaTime) {
-	const float gravitySpeed = 100.0f;
+	const float gravitySpeed = 400.0f;
 
 	if (!onground) {
 		if (!jumping) {
@@ -67,20 +67,24 @@ bool Player::collidesWith(const sf::FloatRect& rect) const {
 		(A.position.y + A.size.y > rect.position.y);
 }
 
-void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<soltemp> sol) {
-	if(jumping)
+bool Player::collidesGround(const std::vector<Tile>& tileVector) const{
+	for (auto& b : tileVector) {
+		if (collidesWith(b.getBounds()))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector) {
+	if(onground)
 		hitbox.setFillColor(sf::Color::Red);
 	else
 		hitbox.setFillColor(sf::Color::Green);
 
-	for (auto& b : sol) {
-		b.update(window);
-		if (collidesWith(b.getBounds()))
-		{
-			onground = true;
-			exit;
-		}
-	}
+	onground = collidesGround(tileVector);
+
 	gravity(deltaTime);
 	if (sf::Mouse::isButtonPressed)
 	{

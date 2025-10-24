@@ -2,7 +2,6 @@
 #include "LevelGenerator.h"
 #include "TileManager.h"
 #include "Player.h"
-#include "soltemp.h"
 
 int main()
 {
@@ -30,7 +29,6 @@ int main()
     sf::Music m;
     m.openFromFile("assets/music/test.ogg");
     m.setLooping(true);
-    std::vector<soltemp> sol = { {0, 70}, {20, 70} , {40, 70} };
     Player player;
     while (window.isOpen())
     {
@@ -82,7 +80,7 @@ int main()
         {
             window.clear();
             manager.drawTiles();
-            player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
+            player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.getVector()&);
             manager.update(deltaTime.getElapsedTime().asSeconds());
             window.display();
             deltaTime.restart();

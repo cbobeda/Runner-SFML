@@ -10,12 +10,14 @@ class TileManager
 		TileManager(sf::RenderWindow& window);
 		void update(float deltaTime);
 		void drawTiles();
+		const std::vector<Tile>& getVector() const;
+
 
 	private:
 		LevelGenerator generation;
 		sf::RenderWindow* win;
 		const float tileWidth = 60.f;
-		std::vector<Tile> tileVector;
+		std::vector<Tile>& tileVector;
 
 };
 
