@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "soltemp.h"
 #include "SaveManager.h"
+#include "SoundManager.h"
 
 int main()
 {
@@ -33,10 +34,8 @@ int main()
     sf::Clock deltaTime;
     sf::Clock buttonCd;
 
+    SoundManager sManager(&window);
 
-    sf::Music m;
-    m.openFromFile("assets/music/test.ogg");
-    m.setLooping(true);
     std::vector<soltemp> sol = { {0, 70}, {20, 70} , {40, 70} };
     Player player;
     while (window.isOpen())
@@ -50,13 +49,13 @@ int main()
                 if (!isPause)
                 {
                     isPause = true;
-                    m.pause();
+                    sManager.pause();
                     deltaTime.restart();
                 }
                 else
                 {
                     isPause = false;
-                    m.play();
+                    sManager.play();
                     deltaTime.restart();
                 }
                 buttonCd.restart();
@@ -65,10 +64,15 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && isHome)
             {
                 isHome = false;
-                m.play();
+                sManager.play();
                 deltaTime.restart();
             }
-            
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+                sManager.soundDown();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+                sManager.soundUp();
         }
         if (isHome)
         {
@@ -91,6 +95,7 @@ int main()
             manager.drawTiles();
             scoreText.setString("Score : " + std::to_string(score));
             window.draw(scoreText);
+            sManager.drawSoundbar(&window);
             player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
             window.setActive(false);
             std::thread t1(&TileManager::update,&manager,deltaTime.getElapsedTime().asSeconds());
