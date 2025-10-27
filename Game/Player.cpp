@@ -21,17 +21,6 @@ void Player::dash(){
 
 }
 
-void Player::jump(float deltaTime) {
-	if (y < 20)jumping = false;
-	if (onground || jumping) {
-		onground = false;
-		jumping = true;
-		y -= 300 * deltaTime;
-	}
-	 
-} 
-
-
 void Player::controle(int input, float deltaTime) {
 	if (input == 1)
 	{
@@ -46,12 +35,19 @@ void Player::controle(int input, float deltaTime) {
 }
 
 void Player::gravity(float deltaTime) {
-	const float gravitySpeed = 400.0f;
-
 	if (!onground) {
-		if (!jumping) {
-			y += gravitySpeed * deltaTime;
-		}
+		velocity.y += gravityStrength * deltaTime;
+
+		if (velocity.y > maxFallSpeed)
+			velocity.y = maxFallSpeed;
+	}
+}
+
+void Player::jump(float deltaTime) {
+	if (onground) {
+		velocity.y = jumpStrength;
+		onground = false;
+		jumping = true;
 	}
 }
 
@@ -77,27 +73,29 @@ bool Player::collidesGround(const std::vector<Tile>& tileVector) const{
 	return false;
 }
 
-void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector<Tile>& tileVector) {
-	if(onground)
-		hitbox.setFillColor(sf::Color::Red);
-	else
-		hitbox.setFillColor(sf::Color::Green);
 
-	onground = collidesGround(tileVector);
+void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector<Tile>& tileVector) {
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		controle(1, deltaTime);
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
+		controle(2, deltaTime);
 
 	gravity(deltaTime);
-	if (sf::Mouse::isButtonPressed)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-			controle(1, deltaTime);
-		else
-			jumping = false;
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
-			controle(2, deltaTime);
+
+	y += velocity.y * deltaTime;
+
+	if (collidesGround(tileVector)) {
+		onground = true;
+		jumping = false;
+		velocity.y = 0.f;
 	}
+	else {
+		onground = false;
+	}
+
 	hitbox.setPosition({ x, y });
 	window.draw(hitbox);
 }
-
 
 

@@ -43,13 +43,14 @@ void TileManager::update(float deltaTime)
 {
 	for (auto& tile : tileVector)
 	{
-		tile.update(deltaTime, 500.f);
+		tile.update(deltaTime, 50.f * log(colorClock.getElapsedTime().asMilliseconds()));
 	}
 	for (auto& coin : coinVector)
 	{
 		coin.update(deltaTime, 500.f);
 	}
 
+	std::cout << 10.f * log(colorClock.getElapsedTime().asMicroseconds()) * 10 << "\n";
 
 	// seconde passe : recycler les tuiles qui sont complètement sorties à gauche
 
@@ -64,7 +65,7 @@ void TileManager::update(float deltaTime)
 				maxX = std::max(maxX, t.getSprite()->getPosition().x);
 			}
 			// placer la tuile recyclée directement à droite de la tuile la plus à droite
-			tile.getSprite()->setPosition(sf::Vector2f(maxX + static_cast<float>(tileWidth) * 5,tile.getSprite()->getPosition().y));
+			tile.getSprite()->setPosition(sf::Vector2f(maxX + static_cast<float>(tileWidth) * 5, tile.getSprite()->getPosition().y));
 			tile.getSprite()->setColor(sf::Color(std::sinf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::cosf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::sinf(colorClock.getElapsedTime().asSeconds() + 3.14159265359) * 127 + 127));
 			int random;
 			random = rand() % 4;
@@ -76,7 +77,6 @@ void TileManager::update(float deltaTime)
 		std::shared_ptr<sf::Sprite> spr = c.getSprite();
 		return spr && spr->getPosition().x <= -10.f;
 		});
-}
 }
 
 const std::vector<Tile>& TileManager::getVector() const { return tileVector; }

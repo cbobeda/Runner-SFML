@@ -3,7 +3,6 @@
 #include "LevelGenerator.h"
 #include "TileManager.h"
 #include "Player.h"
-#include "soltemp.h"
 #include "SaveManager.h"
 
 int main()

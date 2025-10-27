@@ -84,7 +84,6 @@
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SaveManager.cpp" />
-    <ClCompile Include="soltemp.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
   </ItemGroup>

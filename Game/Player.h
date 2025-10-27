@@ -16,7 +16,6 @@ private:
 	void dash(); 
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
-	float velocity;
 
 	float x = 50.f;
 	float y = 50.f;
@@ -24,6 +23,11 @@ private:
 	bool jumping = false;
 	bool onground = false;
 	
+	sf::Vector2f velocity;
+	float gravityStrength = 1000.f;
+	float jumpStrength = -400.f;
+	float maxFallSpeed = 800.f;
+
 	sf::FloatRect getBounds() const;
 	bool collidesWith(const sf::FloatRect& rect) const;
 	bool collidesGround(const std::vector<Tile>& tileVector) const;
