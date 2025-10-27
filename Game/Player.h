@@ -16,6 +16,7 @@ private:
 	void dash(); 
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
+	void fixheigh();
 
 	float x = 50.f;
 	float y = 50.f;
@@ -30,7 +31,7 @@ private:
 
 	sf::FloatRect getBounds() const;
 	bool collidesWith(const sf::FloatRect& rect) const;
-	bool collidesGround(const std::vector<Tile>& tileVector) const;
+	const Tile* getCollidingTile(const std::vector<Tile>& tileVector) const;
 
 
 	sf::RectangleShape hitbox;

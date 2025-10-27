@@ -63,14 +63,13 @@ bool Player::collidesWith(const sf::FloatRect& rect) const {
 		(A.position.y + A.size.y > rect.position.y);
 }
 
-bool Player::collidesGround(const std::vector<Tile>& tileVector) const{
-	for (auto& b : tileVector) {
-		if (collidesWith(b.getBounds()))
-		{
-			return true;
+const Tile* Player::getCollidingTile(const std::vector<Tile>& tileVector) const {
+	for (const auto& tile : tileVector) {
+		if (collidesWith(tile.getBounds())) {
+			return &tile;
 		}
 	}
-	return false;
+	return nullptr;
 }
 
 
@@ -82,20 +81,26 @@ void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector
 		controle(2, deltaTime);
 
 	gravity(deltaTime);
-
 	y += velocity.y * deltaTime;
 
-	if (collidesGround(tileVector)) {
-		onground = true;
-		jumping = false;
-		velocity.y = 0.f;
+	const Tile* collidedTile = getCollidingTile(tileVector);
+	if (collidedTile) {
+		sf::FloatRect tileBounds = collidedTile->getBounds();
+		sf::FloatRect playerBounds = getBounds();
+
+		if (velocity.y > 0.f && playerBounds.position.y + playerBounds.size.y > tileBounds.position.y) {
+			y = tileBounds.position.y - playerBounds.size.y;
+			velocity.y = 0.f;
+			onground = true;
+			jumping = false;
+		}
 	}
 	else {
 		onground = false;
 	}
-
 	hitbox.setPosition({ x, y });
 	window.draw(hitbox);
 }
+
 
 
