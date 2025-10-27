@@ -17,7 +17,7 @@ class TileManager
 		LevelGenerator generation;
 		sf::RenderWindow* win;
 		const float tileWidth = 60.f;
-		std::vector<Tile>& tileVector;
+		std::vector<Tile> tileVector;
 
 };
 

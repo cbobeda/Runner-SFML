@@ -80,7 +80,7 @@ int main()
         {
             window.clear();
             manager.drawTiles();
-            player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.getVector()&);
+            player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.getVector());
             manager.update(deltaTime.getElapsedTime().asSeconds());
             window.display();
             deltaTime.restart();

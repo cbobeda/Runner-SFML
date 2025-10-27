@@ -9,7 +9,7 @@ public:
 	~Player();
 	float getx();
 	float gety();
-	void update(sf::RenderWindow& window, float deltaTim, std::vector<Tile>& tileVector);
+	void update(sf::RenderWindow& window, float deltaTim, const std::vector<Tile>& tileVector);
 	
 private:
 
@@ -17,7 +17,6 @@ private:
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
 	float velocity;
-	float speed;
 
 	float x = 50.f;
 	float y = 50.f;

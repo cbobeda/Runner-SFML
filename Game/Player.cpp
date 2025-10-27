@@ -77,7 +77,7 @@ bool Player::collidesGround(const std::vector<Tile>& tileVector) const{
 	return false;
 }
 
-void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector) {
+void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector<Tile>& tileVector) {
 	if(onground)
 		hitbox.setFillColor(sf::Color::Red);
 	else
