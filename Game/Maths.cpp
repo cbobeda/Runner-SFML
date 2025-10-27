@@ -11,7 +11,6 @@ int main()
     bool isHome = true;
     bool isPause = false;
 
-
     sf::Font neon("assets/font/Neon.ttf");
     sf::Text title(neon, "Runner", 70);
     sf::Text instruction(neon, "Press SPACE to start", 30);
