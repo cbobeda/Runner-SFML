@@ -99,6 +99,7 @@ int main()
             window.setActive(true);
             window.display();
 
+
             deltaTime.restart();
 
         }
