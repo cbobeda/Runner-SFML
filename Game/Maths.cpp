@@ -11,9 +11,6 @@ int main()
     bool isHome = true;
     bool isPause = false;
 
-    float fps;
-    float currentTime = 1.f;
-    float lastTime = 2.f;
 
     sf::Font neon("assets/font/Neon.ttf");
     sf::Text title(neon, "Runner", 70);
@@ -102,13 +99,7 @@ int main()
             window.setActive(true);
             window.display();
 
-
-            //fps calculation
-            currentTime = deltaTime.restart().asSeconds();
-            fps = 1.f / (currentTime - lastTime);
-            lastTime = currentTime;
-
-            std::cout << fps << "\n";
+            deltaTime.restart();
 
         }
 
