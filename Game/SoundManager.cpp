@@ -2,7 +2,10 @@
 
 SoundManager::SoundManager(sf::RenderWindow* window)
 {
-    m.openFromFile("assets/music/test.ogg");
+    if (!m.openFromFile("assets/music/test.ogg"))
+    {
+        std::cout << "Erreur lors du chargement de la music \n";
+    }
     m.setLooping(true);
 
     bar.setPosition(sf::Vector2f(window->getSize().x - 110.f, 10.f));
