@@ -3,8 +3,7 @@
 
 TileManager::TileManager(sf::RenderWindow& window) : win(&window), tileText(std::make_shared<sf::Texture>()), coinText(std::make_shared<sf::Texture>())
 {
-	srand(time(0));
-
+	dist.param(std::uniform_int_distribution<int>::param_type{0,3});
 	if (!tileText->loadFromFile("assets/map/tile.png"))
 	{
 		std::cout << "failed to load tile texture \n";
@@ -16,11 +15,10 @@ TileManager::TileManager(sf::RenderWindow& window) : win(&window), tileText(std:
 	}
 
 	tileVector.reserve(generation.getTime().size());
-	int random;
+
 	for (auto& time : generation.getTime())
 	{
-		random = rand() % 4;
-		if (random == 0)
+		if (dist(rd) == 0)
 			coinVector.emplace_back(coinText, (time * tileWidth * 5) + 120.f , generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5 - 60.f);
 		tileVector.emplace_back(tileText, time * tileWidth * 5, generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5);
 		tileVector.back().getSprite()->setColor(sf::Color(std::sinf(time) * 127 + 127, std::cosf(time) * 127 + 127, std::sinf(time + 3.14159265359) * 127 + 127));
@@ -43,14 +41,14 @@ void TileManager::update(float deltaTime)
 {
 	for (auto& tile : tileVector)
 	{
-		tile.update(deltaTime, 50.f * log(colorClock.getElapsedTime().asMilliseconds()));
+		tile.update(deltaTime, 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()),5));
 	}
 	for (auto& coin : coinVector)
 	{
-		coin.update(deltaTime, 500.f);
+		coin.update(deltaTime, 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()), 5));
 	}
 
-	std::cout << 10.f * log(colorClock.getElapsedTime().asMicroseconds()) * 10 << "\n";
+	//std::cout << 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()), 5) << "\n";
 
 	// seconde passe : recycler les tuiles qui sont complètement sorties à gauche
 
@@ -67,10 +65,10 @@ void TileManager::update(float deltaTime)
 			// placer la tuile recyclée directement à droite de la tuile la plus à droite
 			tile.getSprite()->setPosition(sf::Vector2f(maxX + static_cast<float>(tileWidth) * 5, tile.getSprite()->getPosition().y));
 			tile.getSprite()->setColor(sf::Color(std::sinf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::cosf(colorClock.getElapsedTime().asSeconds()) * 127 + 127, std::sinf(colorClock.getElapsedTime().asSeconds() + 3.14159265359) * 127 + 127));
-			int random;
-			random = rand() % 4;
-			if (random == 0)
+			if (dist(rd) == 0)
+			{
 				coinVector.emplace_back(coinText, (maxX + static_cast<float>(tileWidth) * 5) + 120.f, (tile.getSprite()->getPosition().y) - 60.f);
+			}
 		}
 	}
 	std::erase_if(coinVector, [](Coins& c) {

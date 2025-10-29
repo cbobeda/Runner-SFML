@@ -4,12 +4,12 @@
 #include "TileManager.h"
 #include "Player.h"
 #include "SaveManager.h"
+#include "SoundManager.h"
 
 int main()
 {
     bool isHome = true;
     bool isPause = false;
-
 
     sf::Font neon("assets/font/Neon.ttf");
     sf::Text title(neon, "Runner", 70);
@@ -33,10 +33,9 @@ int main()
     sf::Clock deltaTime;
     sf::Clock buttonCd;
 
+    SoundManager sManager(&window);
 
-    sf::Music m;
-    m.openFromFile("assets/music/test.ogg");
-    m.setLooping(true);
+
     Player player;
     while (window.isOpen())
     {
@@ -49,13 +48,13 @@ int main()
                 if (!isPause)
                 {
                     isPause = true;
-                    m.pause();
+                    sManager.pause();
                     deltaTime.restart();
                 }
                 else
                 {
                     isPause = false;
-                    m.play();
+                    sManager.play();
                     deltaTime.restart();
                 }
                 buttonCd.restart();
@@ -64,10 +63,15 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && isHome)
             {
                 isHome = false;
-                m.play();
+                sManager.play();
                 deltaTime.restart();
             }
-            
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+                sManager.soundDown();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+                sManager.soundUp();
         }
         if (isHome)
         {
@@ -88,9 +92,9 @@ int main()
         {
             window.clear();
             manager.drawTiles();
-            scoreText.setString("Score : " + std::to_string(score));
+            sManager.drawSoundbar(&window);
             window.draw(scoreText);
-            
+            player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
             window.setActive(false);
             std::thread t1(&TileManager::update,&manager,deltaTime.getElapsedTime().asSeconds());
             t1.join();
