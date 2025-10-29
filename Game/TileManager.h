@@ -16,7 +16,7 @@ class TileManager
 		std::vector<Tile>& gettileVector();
 		const std::vector<Coins>& getconstcoinVector() const;
 		std::vector<Coins>& getcoinVector();
-
+		float speed;
 
 	private:
 		LevelGenerator generation;

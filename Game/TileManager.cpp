@@ -38,14 +38,15 @@ void TileManager::drawTiles()
 }
 
 void TileManager::update(float deltaTime)
-{
+{	
+	speed = 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()), 5);
 	for (auto& tile : tileVector)
 	{
-		tile.update(deltaTime, 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()),5));
+		tile.update(deltaTime, speed);
 	}
 	for (auto& coin : coinVector)
 	{
-		coin.update(deltaTime, 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()), 5));
+		coin.update(deltaTime, speed);
 	}
 	// seconde passe : recycler les tuiles qui sont complètement sorties à gauche
 

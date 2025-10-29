@@ -17,8 +17,26 @@ float Player::gety() { return y;}
 
 void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector){
 
-	return;
-	//augmenter la speed total
+	const float dashDistance = 150.f;
+	dashcd = true;
+
+	for (auto& tile : tileVector) {
+		auto sprite = tile.getSprite();
+		if (sprite) {
+			sf::Vector2f pos = sprite->getPosition();
+			pos.x -= dashDistance;
+			sprite->setPosition(pos);
+		}
+	}
+
+	for (auto& coin : coinVector) {
+		auto sprite = coin.getSprite();
+		if (sprite) {
+			sf::Vector2f pos = sprite->getPosition();
+			pos.x -= dashDistance;
+			sprite->setPosition(pos);
+		}
+	}
 
 }
 

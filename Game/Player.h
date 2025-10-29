@@ -20,7 +20,7 @@ private:
 
 	float x = 100.f;
 	float y = 50.f;
-	float speed = 1.f;
+	bool dashcd = false;
 	bool jumping = false;
 	bool onground = false;
 	bool alive = true;
