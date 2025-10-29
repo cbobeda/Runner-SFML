@@ -12,6 +12,10 @@ public:
 	float gety();
 	void update(sf::RenderWindow& window, float deltaTim, const std::vector<Tile>& tileVector);
 	
+
+public:
+	bool alive = true;
+
 private:
 
 	void dash(); 
@@ -23,7 +27,7 @@ private:
 	float speed = 1.f;
 	bool jumping = false;
 	bool onground = false;
-	bool alive = true;
+	
 
 	sf::Vector2f velocity;
 	float gravityStrength = 1000.f;

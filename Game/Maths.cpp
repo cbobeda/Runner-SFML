@@ -16,6 +16,7 @@ int main()
     sf::Text instruction(neon, "Press SPACE to start", 30);
     sf::Text pauseText(neon, "PAUSED", 30);
     sf::Text scoreText(neon, "score", 30);
+    sf::Text death(neon, "You are dead", 70);
 
     SaveManager sav;
     int score = sav.getSavedCoins();
@@ -25,6 +26,7 @@ int main()
     title.setPosition(sf::Vector2f(window.getSize().x / 2 - title.getLocalBounds().size.x / 2, window.getSize().y / 2 - title.getLocalBounds().size.y / 2 - 100));
     instruction.setPosition(sf::Vector2f(window.getSize().x / 2 - instruction.getLocalBounds().size.x / 2, window.getSize().y / 2 - instruction.getLocalBounds().size.y / 2 + 100));
     pauseText.setPosition(sf::Vector2f(window.getSize().x / 2 - pauseText.getLocalBounds().size.x / 2, window.getSize().y / 2 - pauseText.getLocalBounds().size.y / 2));
+    death.setPosition(sf::Vector2f(window.getSize().x / 2 - death.getLocalBounds().size.x / 2, window.getSize().y / 2 - death.getLocalBounds().size.y / 2 - 100));
 
 
     TileManager manager(window);
@@ -88,7 +90,14 @@ int main()
             pauseText.setFillColor(sf::Color(255, 255, 255, std::sinf(deltaTime.getElapsedTime().asSeconds()) * 100 + 150));
             window.display();
         }
-        if(!isHome && !isPause )
+        if (!player.alive)
+        {
+            window.clear();
+            window.draw(death);
+            death.setFillColor(sf::Color(255, 255, 255, std::sinf(deltaTime.getElapsedTime().asSeconds()) * 100 + 150));
+            window.display();
+        }
+        if(!isHome && !isPause && player.alive)
         {
             window.clear();
             manager.drawTiles();
