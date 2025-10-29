@@ -27,6 +27,9 @@
     <ClCompile Include="Coins.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -47,7 +50,7 @@
     <ClInclude Include="Coins.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="soltemp.h">
+    <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
