@@ -17,7 +17,7 @@ void Coins::draw(sf::RenderWindow& window)
 	window.draw(*sprite);
 }
 
-std::shared_ptr<sf::Sprite> Coins::getSprite()
+std::shared_ptr<sf::Sprite> Coins::getSprite() const
 {
 	return sprite;
 }

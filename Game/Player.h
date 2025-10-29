@@ -15,6 +15,7 @@ public:
 
 public:
 	bool alive = true;
+	bool coin = true;
 
 private:
 
@@ -39,6 +40,7 @@ private:
 	sf::FloatRect getBounds() const;
 	bool collidesWith(const sf::FloatRect& rect) const;
 	const Tile* getCollidingTile(const std::vector<Tile>& tileVector) const;
+	const Coins* getCollidingCoin(std::vector<Coins>& coinVector) const ;
 
 
 	sf::RectangleShape hitbox;

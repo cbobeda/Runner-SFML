@@ -93,6 +93,14 @@ const Tile* Player::getCollidingTile(const std::vector<Tile>& tileVector) const 
 	return nullptr;
 }
 
+const Coins* Player::getCollidingCoin(std::vector<Coins>& coinVector) const {
+	for (const auto& coin : coinVector) {
+		if (collidesWith(coin.getBounds())) {
+			return &coin;
+		}
+	}
+	return nullptr;
+}
 
 void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector, const std::vector<Tile>& consttileVector, std::vector<Coins>& coinVector, const std::vector<Coins>& constcoinVector) {
 
@@ -105,6 +113,7 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 	y += velocity.y * deltaTime;
 
 	const Tile* collidedTile = getCollidingTile(consttileVector);
+	const Coins* collidedCoin = getCollidingCoin(coinVector);
 	if (collidedTile) {
 		sf::FloatRect tileBounds = collidedTile->getBounds();
 		sf::FloatRect playerBounds = getBounds();
@@ -126,6 +135,17 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 	}
 	else {
 		onground = false;
+	}
+	if (collidedCoin)
+	{
+		coin = true;
+		coinVector.erase(
+			std::remove_if(coinVector.begin(), coinVector.end(),
+				[&](const Coins& c) {
+					return c.getSprite().get() == collidedCoin->getSprite().get();
+				}),
+			coinVector.end()
+		);
 	}
 	hitbox.setPosition({ x, y });
 	window.draw(hitbox);
