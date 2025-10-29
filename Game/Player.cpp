@@ -15,10 +15,10 @@ Player::~Player()
 float Player::getx() { return x;}
 float Player::gety() { return y;}
 
-void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector){
+void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector, float deltaTime){
 
-	const float dashDistance = 150.f;
-	dashcd = true;
+	// Décalage vers la gauche (le monde recule)
+	const float dashDistance = 360.f;
 
 	for (auto& tile : tileVector) {
 		auto sprite = tile.getSprite();
@@ -37,7 +37,6 @@ void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector){
 			sprite->setPosition(pos);
 		}
 	}
-
 }
 
 void Player::controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector) {
@@ -46,7 +45,10 @@ void Player::controle(int input, float deltaTime, std::vector<Tile>& tileVector,
 		jump(deltaTime);
 	}
 	else if (input == 2) {
-		dash(tileVector, coinVector);
+		if (dashClock.getElapsedTime().asSeconds() >= dashCooldown) {
+			dash(tileVector, coinVector, deltaTime);
+			dashClock.restart();
+		}
 	}
 	else{
 		return;

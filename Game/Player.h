@@ -14,16 +14,18 @@ public:
 	
 private:
 
-	void dash(std::vector<Tile>& tileVector, std::vector<Coins>& coinVector);
+	void dash(std::vector<Tile>& tileVector, std::vector<Coins>& coinVector, float deltaTime);
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
 
 	float x = 100.f;
 	float y = 50.f;
-	bool dashcd = false;
 	bool jumping = false;
 	bool onground = false;
 	bool alive = true;
+
+	sf::Clock dashClock;
+	const float dashCooldown = 1.5f;
 
 	sf::Vector2f velocity;
 	float gravityStrength = 1000.f;
