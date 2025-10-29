@@ -94,7 +94,6 @@ int main()
             manager.drawTiles();
             sManager.drawSoundbar(&window);
             window.draw(scoreText);
-            player.update(window, deltaTime.getElapsedTime().asSeconds(), sol);
             window.setActive(false);
             std::thread t1(&TileManager::update,&manager,deltaTime.getElapsedTime().asSeconds());
             t1.join();
