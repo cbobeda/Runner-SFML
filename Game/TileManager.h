@@ -28,7 +28,11 @@ class TileManager
 
 		std::shared_ptr<sf::Texture> tileText;
 		std::shared_ptr<sf::Texture> coinText;
+		std::shared_ptr<sf::Texture> bgText;
 
+
+		std::shared_ptr<sf::Sprite> bgSprite1;
+		std::shared_ptr<sf::Sprite> bgSprite2;
 
 		std::random_device rd;
 		std::uniform_int_distribution<int> dist;

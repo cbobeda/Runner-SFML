@@ -14,6 +14,20 @@ TileManager::TileManager(sf::RenderWindow& window) : win(&window), tileText(std:
 		std::cout << "failed to load coin texture \n";
 	}
 
+	bgText = std::make_shared<sf::Texture>();
+
+	if (!bgText->loadFromFile("assets/map/bg.png"))
+	{
+		std::cout << "failed to load background texture \n";
+	}
+
+	bgSprite1 = std::make_shared<sf::Sprite>(*bgText);
+	bgSprite2 = std::make_shared<sf::Sprite>(*bgText);
+
+	bgSprite1->setScale(sf::Vector2f(4,4));
+	bgSprite2->setScale(sf::Vector2f(4,4));
+	bgSprite2->setPosition(sf::Vector2f(bgSprite1->getPosition().x + 1920, 0));
+
 	tileVector.reserve(generation.getTime().size());
 
 	for (auto& time : generation.getTime())
@@ -27,6 +41,9 @@ TileManager::TileManager(sf::RenderWindow& window) : win(&window), tileText(std:
 
 void TileManager::drawTiles()
 {
+	win->draw(*bgSprite1);
+	win->draw(*bgSprite2);
+
 	for (auto& tile : tileVector)
 	{
 		tile.draw(*win);
@@ -35,6 +52,7 @@ void TileManager::drawTiles()
 	{
 		coin.draw(*win);
 	}
+	
 }
 
 void TileManager::update(float deltaTime)
@@ -48,6 +66,15 @@ void TileManager::update(float deltaTime)
 	{
 		coin.update(deltaTime, speed);
 	}
+
+	bgSprite1->move(sf::Vector2f(-4.f, 0.f));
+	bgSprite2->move(sf::Vector2f(-4.f, 0.f));
+
+	std::cout << bgSprite1->getPosition().x << std::endl;
+	if(bgSprite1->getPosition().x < - 1920)
+		bgSprite1->setPosition(sf::Vector2f(bgSprite2->getPosition().x + 1920, 0));
+	if(bgSprite2->getPosition().x < -1920)
+		bgSprite2->setPosition(sf::Vector2f(bgSprite1->getPosition().x + 1920, 0));
 	// seconde passe : recycler les tuiles qui sont complètement sorties à gauche
 
 	const float leftThreshold = -static_cast<float>(tileWidth) * 5; // ou sprite width si variable
