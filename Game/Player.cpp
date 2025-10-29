@@ -88,12 +88,20 @@ void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector
 		sf::FloatRect tileBounds = collidedTile->getBounds();
 		sf::FloatRect playerBounds = getBounds();
 
-		if (velocity.y > 0.f && playerBounds.position.y + playerBounds.size.y > tileBounds.position.y) {
+		if (playerBounds.position.y + playerBounds.size.y > tileBounds.position.y && playerBounds.position.x <= tileBounds.position.x)
+		{ 
+			if (playerBounds.position.y + playerBounds.size.y - tileBounds.position.y > playerBounds.size.y / 2)
+				alive = false;
+		}
+
+
+		else if (playerBounds.position.y + playerBounds.size.y > tileBounds.position.y && playerBounds.position.x > tileBounds.position.x ) {
 			y = tileBounds.position.y - playerBounds.size.y;
 			velocity.y = 0.f;
 			onground = true;
 			jumping = false;
 		}
+
 	}
 	else {
 		onground = false;

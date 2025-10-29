@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TileManager.h"
+#include "Coins.h"
 
 class Player
 {
@@ -16,14 +17,14 @@ private:
 	void dash(); 
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
-	void fixheigh();
 
 	float x = 100.f;
 	float y = 50.f;
 	float speed = 1.f;
 	bool jumping = false;
 	bool onground = false;
-	
+	bool alive = true;
+
 	sf::Vector2f velocity;
 	float gravityStrength = 1000.f;
 	float jumpStrength = -400.f;

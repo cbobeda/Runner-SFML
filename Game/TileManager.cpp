@@ -49,9 +49,6 @@ void TileManager::update(float deltaTime)
 	{
 		coin.update(deltaTime, 500.f);
 	}
-
-	std::cout << 10.f * log(colorClock.getElapsedTime().asMicroseconds()) * 10 << "\n";
-
 	// seconde passe : recycler les tuiles qui sont complètement sorties à gauche
 
 	const float leftThreshold = -static_cast<float>(tileWidth) * 5; // ou sprite width si variable
