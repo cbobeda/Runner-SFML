@@ -84,6 +84,7 @@
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SaveManager.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
   </ItemGroup>
@@ -96,10 +97,10 @@
     <ClInclude Include="Coins.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SaveManager.h" />
-    <ClInclude Include="soltemp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelGenerator.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileManager.h" />
   </ItemGroup>
