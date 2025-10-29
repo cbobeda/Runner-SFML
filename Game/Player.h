@@ -12,6 +12,10 @@ public:
 	float gety();
 	void update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector, const std::vector<Tile>& consttileVector, std::vector<Coins>& coinVector, const std::vector<Coins>& constcoinVector);
 	
+
+public:
+	bool alive = true;
+
 private:
 
 	void dash(std::vector<Tile>& tileVector, std::vector<Coins>& coinVector, float deltaTime);
@@ -22,7 +26,7 @@ private:
 	float y = 50.f;
 	bool jumping = false;
 	bool onground = false;
-	bool alive = true;
+	
 
 	sf::Clock dashClock;
 	const float dashCooldown = 1.5f;
