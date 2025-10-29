@@ -15,19 +15,20 @@ Player::~Player()
 float Player::getx() { return x;}
 float Player::gety() { return y;}
 
-void Player::dash(){
+void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector){
+
 	return;
 	//augmenter la speed total
 
 }
 
-void Player::controle(int input, float deltaTime) {
+void Player::controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector) {
 	if (input == 1)
 	{
 		jump(deltaTime);
 	}
 	else if (input == 2) {
-		dash();
+		dash(tileVector, coinVector);
 	}
 	else{
 		return;
@@ -73,17 +74,17 @@ const Tile* Player::getCollidingTile(const std::vector<Tile>& tileVector) const 
 }
 
 
-void Player::update(sf::RenderWindow& window, float deltaTime, const std::vector<Tile>& tileVector) {
+void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector, const std::vector<Tile>& consttileVector, std::vector<Coins>& coinVector, const std::vector<Coins>& constcoinVector) {
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		controle(1, deltaTime);
+		controle(1, deltaTime, tileVector, coinVector);
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
-		controle(2, deltaTime);
+		controle(2, deltaTime, tileVector, coinVector);
 
 	gravity(deltaTime);
 	y += velocity.y * deltaTime;
 
-	const Tile* collidedTile = getCollidingTile(tileVector);
+	const Tile* collidedTile = getCollidingTile(consttileVector);
 	if (collidedTile) {
 		sf::FloatRect tileBounds = collidedTile->getBounds();
 		sf::FloatRect playerBounds = getBounds();

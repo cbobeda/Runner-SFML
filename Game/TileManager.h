@@ -12,7 +12,10 @@ class TileManager
 		TileManager(sf::RenderWindow& window);
 		void update(float deltaTime);
 		void drawTiles();
-		const std::vector<Tile>& getVector() const;
+		const std::vector<Tile>& getconsttileVector() const;
+		std::vector<Tile>& gettileVector();
+		const std::vector<Coins>& getconstcoinVector() const;
+		std::vector<Coins>& getcoinVector();
 
 
 	private:

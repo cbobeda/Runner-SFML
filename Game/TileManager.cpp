@@ -76,4 +76,7 @@ void TileManager::update(float deltaTime)
 		});
 }
 
-const std::vector<Tile>& TileManager::getVector() const { return tileVector; }
+std::vector<Tile>& TileManager::gettileVector() { return tileVector; }
+const std::vector<Tile>& TileManager::getconsttileVector() const { return tileVector; }
+std::vector<Coins>& TileManager::getcoinVector() { return coinVector; }
+const std::vector<Coins>& TileManager::getconstcoinVector() const { return coinVector; }

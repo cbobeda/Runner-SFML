@@ -95,7 +95,7 @@ int main()
             std::thread t1(&TileManager::update,&manager,deltaTime.getElapsedTime().asSeconds());
             t1.join();
             window.setActive(true);
-            player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.getVector());
+            player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.gettileVector(), manager.getconsttileVector(), manager.getcoinVector(), manager.getconstcoinVector());
        
             window.display();
 

@@ -10,11 +10,11 @@ public:
 	~Player();
 	float getx();
 	float gety();
-	void update(sf::RenderWindow& window, float deltaTim, const std::vector<Tile>& tileVector);
+	void update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector, const std::vector<Tile>& consttileVector, std::vector<Coins>& coinVector, const std::vector<Coins>& constcoinVector);
 	
 private:
 
-	void dash(); 
+	void dash(std::vector<Tile>& tileVector, std::vector<Coins>& coinVector);
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
 
@@ -36,6 +36,6 @@ private:
 
 
 	sf::RectangleShape hitbox;
-	void controle(int input, float deltaTime);
+	void controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector);
 
 };
