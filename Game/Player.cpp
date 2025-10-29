@@ -3,7 +3,7 @@
 #include<vector>
 
 Player::Player(){
-	hitbox = sf::RectangleShape({ 10, 10 });
+	hitbox = sf::RectangleShape({ 25, 25 });
 	hitbox.setFillColor(sf::Color::Green);
 	hitbox.setPosition({ x, y });
 }
