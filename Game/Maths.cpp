@@ -108,6 +108,11 @@ int main()
             t1.join();
             window.setActive(true);
             player.update(window, deltaTime.getElapsedTime().asSeconds(), manager.gettileVector(), manager.getconsttileVector(), manager.getcoinVector(), manager.getconstcoinVector());
+            if (player.coin) {
+                score += 1;
+                player.coin = false;
+                std::cout << score;
+            }
        
             window.display();
 
