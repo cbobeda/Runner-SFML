@@ -55,7 +55,7 @@ void TileManager::drawTiles()
 	
 }
 
-void TileManager::update(float deltaTime)
+float TileManager::update(float deltaTime)
 {	
 	speed = 400.f + std::pow(logl(colorClock.getElapsedTime().asSeconds()), 5);
 	for (auto& tile : tileVector)
@@ -100,6 +100,8 @@ void TileManager::update(float deltaTime)
 		std::shared_ptr<sf::Sprite> spr = c.getSprite();
 		return spr && spr->getPosition().x <= -10.f;
 		});
+
+	return speed;
 }
 
 std::vector<Tile>& TileManager::gettileVector() { return tileVector; }

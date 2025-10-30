@@ -15,7 +15,7 @@ public:
 
 public:
 	bool alive = true;
-	bool coin = true;
+	bool coin = false;
 
 private:
 
