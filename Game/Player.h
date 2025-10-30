@@ -27,7 +27,8 @@ private:
 	float y = 50.f;
 	bool jumping = false;
 	bool onground = false;
-	
+	bool candash = true;
+	const float dashDistance = 360.f;
 
 	sf::Clock dashClock;
 	const float dashCooldown = 1.5f;
@@ -44,6 +45,7 @@ private:
 
 
 	sf::RectangleShape hitbox;
+	sf::RectangleShape shadow;
 	void controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector);
 
 };
