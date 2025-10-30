@@ -100,6 +100,8 @@ int main()
         if (!player.alive)
         {
             window.clear();
+            instruction.setString("Press escape to leave");
+            window.draw(instruction);
             window.draw(death);
             death.setFillColor(sf::Color(255, 255, 255, std::sinf(deltaTime.getElapsedTime().asSeconds()) * 100 + 150));
             window.display();
