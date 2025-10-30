@@ -39,6 +39,19 @@ TileManager::TileManager(sf::RenderWindow& window) : win(&window), tileText(std:
 	}
 }
 
+void TileManager::resetMap()
+{
+	tileVector.clear();
+	coinVector.clear();
+	for (auto& time : generation.getTime())
+	{
+		if (dist(rd) == 0)
+			coinVector.emplace_back(coinText, (time * tileWidth * 5) + 120.f, generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5 - 60.f);
+		tileVector.emplace_back(tileText, time * tileWidth * 5, generation.getDomfreq().at((int)time) * 0.1 + win->getSize().y * 0.5);
+		tileVector.back().getSprite()->setColor(sf::Color(std::sinf(time) * 127 + 127, std::cosf(time) * 127 + 127, std::sinf(time + 3.14159265359) * 127 + 127));
+	}
+}
+
 void TileManager::drawTiles()
 {
 	win->draw(*bgSprite1);
@@ -102,6 +115,12 @@ float TileManager::update(float deltaTime)
 		});
 
 	return speed;
+}
+
+void TileManager::resetSpeed()
+{
+	colorClock.restart();
+	speed = 400;
 }
 
 std::vector<Tile>& TileManager::gettileVector() { return tileVector; }

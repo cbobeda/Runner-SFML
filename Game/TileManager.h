@@ -10,8 +10,11 @@ class TileManager
 	public:
 
 		TileManager(sf::RenderWindow& window);
+		~TileManager() = default;
 		float update(float deltaTime);
 		void drawTiles();
+		void resetSpeed();
+		void resetMap();
 		const std::vector<Tile>& getconsttileVector() const;
 		std::vector<Tile>& gettileVector();
 		const std::vector<Coins>& getconstcoinVector() const;

@@ -9,6 +9,9 @@
 
 int main()
 {
+
+    bool playing = true;
+
     bool isHome = true;
     bool isPause = false;
 
@@ -18,7 +21,7 @@ int main()
 
     sf::Font neon("assets/font/Neon.ttf");
     sf::Text title(neon, "Runner", 70);
-    sf::Text instruction(neon, "Press SPACE to start", 30);
+    sf::Text instruction(neon, "Press Middle click to start", 30);
     sf::Text pauseText(neon, "PAUSED", 30);
     sf::Text scoreText(neon, "Last score : " + std::to_string(score), 30);
     sf::Text coinText(neon, "coins : " + std::to_string(coins), 30);
@@ -67,7 +70,7 @@ int main()
                 buttonCd.restart();
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && isHome)
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) && isHome)
             {
                 isHome = false;
                 sManager.play();
@@ -75,11 +78,31 @@ int main()
                 score = 0;
             }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-                sManager.soundDown();
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-                sManager.soundUp();
+            if (auto wheel = event->getIf<sf::Event::MouseWheelScrolled>())
+            {
+                float offset = wheel->delta;
+                if (offset < 0)
+                {
+                    sManager.soundDown();
+                }
+                if (offset > 0)
+                {
+                    sManager.soundUp();
+                }
+                
+            }
+                
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle) && !playing)
+            {
+                deltaTime.restart();
+                score = 0;
+                coins = 1;
+                manager.resetMap();
+                manager.resetSpeed();
+                player.posReset();
+                player.alive = true;
+                playing = true;
+            }
         }
         if (isHome)
         {
@@ -99,8 +122,10 @@ int main()
         }
         if (!player.alive)
         {
+            playing = false;
             window.clear();
-            instruction.setString("Press escape to leave");
+            instruction.setString("Press escape to leave or Enter to restart");
+            instruction.setPosition(sf::Vector2f(window.getSize().x / 2 - instruction.getLocalBounds().size.x / 2, window.getSize().y / 2 - instruction.getLocalBounds().size.y / 2 + 100));
             window.draw(instruction);
             window.draw(death);
             death.setFillColor(sf::Color(255, 255, 255, std::sinf(deltaTime.getElapsedTime().asSeconds()) * 100 + 150));

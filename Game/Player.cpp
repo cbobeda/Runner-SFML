@@ -16,6 +16,11 @@ Player::~Player()
 {
 }
 
+void Player::posReset()
+{
+	hitbox.setPosition({ 500.f, 50.f });
+	shadow.setPosition({ 500.f + dashDistance, 50.f });
+}
 float Player::getx() { return x;}
 float Player::gety() { return y;}
 

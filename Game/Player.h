@@ -11,7 +11,7 @@ public:
 	float getx();
 	float gety();
 	void update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>& tileVector, const std::vector<Tile>& consttileVector, std::vector<Coins>& coinVector, const std::vector<Coins>& constcoinVector);
-	
+	void posReset();
 
 public:
 	bool alive = true;
@@ -23,7 +23,7 @@ private:
 	void jump(float deltaTime);
 	void gravity(float deltaTim);
 
-	float x = 100.f;
+	float x = 500.f;
 	float y = 50.f;
 	bool jumping = false;
 	bool onground = false;
