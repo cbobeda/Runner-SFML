@@ -1,16 +1,15 @@
 #pragma once
 
-#include <iostream>
-#include<fstream>
-#include<string>
+#include <string>
 
-class SaveManager
-{
-	public:
-		SaveManager();
-		int getSavedCoins();
-		void savecoins(int coins);
-	private:
-		std::unique_ptr<std::fstream> saveFile;
+class SaveManager {
+public:
+    explicit SaveManager(const std::string& path = "save/save.txt");
+    ~SaveManager() = default;
+
+    int getSavedScore();
+    void saveScore(int coins);
+
+private:
+    std::string filePath;
 };
-

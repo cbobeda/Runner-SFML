@@ -1,28 +1,63 @@
 #include "SaveManager.h"
+#include <fstream>
+#include <iostream>
+#include <filesystem>
 
-
-SaveManager::SaveManager()
+SaveManager::SaveManager(const std::string& path)
+    : filePath(path)
 {
-	saveFile = std::make_unique<std::fstream>();
-	saveFile->open("save/save.txt");
-	if (!saveFile->is_open())
-	{
-		std::cout << "file doesn't exist ... generating one \n";
-		saveFile->open("save/save.txt", std::ios::out);
-	}
+    std::filesystem::path p(filePath);
+    if (p.has_parent_path()) {
+        std::error_code ec;
+        std::filesystem::create_directories(p.parent_path(), ec);
+        if (ec) {
+            std::cerr << "SaveManager: erreur creation dossier " << p.parent_path()
+                << " : " << ec.message() << '\n';
+        }
+    }
+
+    // Crée le fichier s'il n'existe pas (mode append pour ne pas tronquer)
+    std::ofstream out(filePath, std::ios::app);
+    if (!out.is_open()) {
+        std::cerr << "SaveManager: impossible de créer/ouvrir " << filePath << '\n';
+    }
 }
 
-int SaveManager::getSavedCoins()
+int SaveManager::getSavedScore()
 {
-	int res;
-	saveFile->seekp(0);
-	std::string line; 
-	*saveFile >> line;
-	res = atoi(line.c_str());
-	return res;
+    std::ifstream in(filePath);
+    if (!in.is_open()) {
+        std::cerr << "getSavedCoins: impossible d'ouvrir " << filePath << " en lecture\n";
+        return 0;
+    }
+
+    std::string line;
+    if (!std::getline(in, line) || line.empty()) {
+        return 0;
+    }
+
+    if (!line.empty() && line.back() == '\r') line.pop_back();
+
+    try {
+        return std::stoi(line);
+    }
+    catch (...) {
+        return 0;
+    }
 }
 
-void SaveManager::savecoins(int coins)
+void SaveManager::saveScore(int coins)
 {
-	*saveFile << coins;
+    // ouvre en écriture et tronque le fichier (écrase l'ancien contenu)
+    std::ofstream out(filePath, std::ios::out | std::ios::trunc);
+    if (!out.is_open()) {
+        std::cerr << "savecoins: impossible d'ouvrir " << filePath << " en écriture\n";
+        return;
+    }
+
+    out << coins << '\n';
+    out.flush();
+    if (!out.good()) {
+        std::cerr << "savecoins: erreur lors de l'écriture dans " << filePath << '\n';
+    }
 }
