@@ -97,9 +97,9 @@ int main()
                 deltaTime.restart();
                 score = 0;
                 coins = 1;
+                player.posReset();
                 manager.resetMap();
                 manager.resetSpeed();
-                player.posReset();
                 player.alive = true;
                 playing = true;
             }

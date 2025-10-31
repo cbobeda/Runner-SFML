@@ -18,8 +18,9 @@ Player::~Player()
 
 void Player::posReset()
 {
-	hitbox.setPosition({ 500.f, 50.f });
-	shadow.setPosition({ 500.f + dashDistance, 50.f });
+	y = 0.f;
+	hitbox.setPosition({ x, y });
+	shadow.setPosition({ x + dashDistance - 20, y });
 }
 float Player::getx() { return x;}
 float Player::gety() { return y;}
@@ -148,7 +149,7 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 		onground = false;
 	}
 	std::cout << hitbox.getPosition().y << std::endl;
-	if (hitbox.getPosition().y > 1000)
+	if (hitbox.getPosition().y > 1090)
 	{
 		alive = false;
 	}

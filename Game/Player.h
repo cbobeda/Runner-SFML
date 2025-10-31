@@ -24,7 +24,7 @@ private:
 	void gravity(float deltaTim);
 
 	float x = 500.f;
-	float y = 50.f;
+	float y = 0.f;
 	bool jumping = false;
 	bool onground = false;
 	bool candash = true;
