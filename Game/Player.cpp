@@ -147,6 +147,11 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 	else {
 		onground = false;
 	}
+	std::cout << hitbox.getPosition().y << std::endl;
+	if (hitbox.getPosition().y > 1000)
+	{
+		alive = false;
+	}
 	if (collidedCoin)
 	{
 		coin = true;
