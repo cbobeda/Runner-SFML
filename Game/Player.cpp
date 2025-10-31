@@ -46,6 +46,15 @@ void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector, 
 	}
 }
 
+void Player::jump(float deltaTime) {
+	if (onground) {
+		velocity.y = jumpStrength;
+		onground = false;
+		jumping = true;
+	}
+}
+
+
 void Player::controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector) {
 	if (input == 1)
 	{
@@ -72,13 +81,6 @@ void Player::gravity(float deltaTime) {
 	}
 }
 
-void Player::jump(float deltaTime) {
-	if (onground) {
-		velocity.y = jumpStrength;
-		onground = false;
-		jumping = true;
-	}
-}
 
 sf::FloatRect Player::getBounds() const {
 	return hitbox.getGlobalBounds();
@@ -156,14 +158,18 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 	if (collidedCoin)
 	{
 		coin = true;
-		coinVector.erase(
-			std::remove_if(coinVector.begin(), coinVector.end(),
-				[&](const Coins& c) {
-					return c.getSprite().get() == collidedCoin->getSprite().get();
-				}),
-			coinVector.end()
-		);
-	}
+
+		for (auto it = coinVector.begin(); it != coinVector.end(); )
+		{
+			if (it->getSprite().get() == collidedCoin->getSprite().get())
+			{
+				it = coinVector.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
 	hitbox.setPosition({ x, y });
 	shadow.setPosition({ x+dashDistance-20, y });
 	window.draw(hitbox);
