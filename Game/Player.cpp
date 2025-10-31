@@ -170,6 +170,7 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 				++it;
 			}
 		}
+	}
 	hitbox.setPosition({ x, y });
 	shadow.setPosition({ x+dashDistance-20, y });
 	window.draw(hitbox);
