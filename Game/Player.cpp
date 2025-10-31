@@ -46,6 +46,15 @@ void Player::dash(std::vector<Tile>& tileVector,std::vector<Coins>& coinVector, 
 	}
 }
 
+void Player::jump(float deltaTime) {
+	if (onground) {
+		velocity.y = jumpStrength;
+		onground = false;
+		jumping = true;
+	}
+}
+
+
 void Player::controle(int input, float deltaTime, std::vector<Tile>& tileVector, std::vector<Coins>& coinVector) {
 	if (input == 1)
 	{
@@ -72,13 +81,6 @@ void Player::gravity(float deltaTime) {
 	}
 }
 
-void Player::jump(float deltaTime) {
-	if (onground) {
-		velocity.y = jumpStrength;
-		onground = false;
-		jumping = true;
-	}
-}
 
 sf::FloatRect Player::getBounds() const {
 	return hitbox.getGlobalBounds();
