@@ -158,18 +158,13 @@ void Player::update(sf::RenderWindow& window, float deltaTime, std::vector<Tile>
 	if (collidedCoin)
 	{
 		coin = true;
-
-		for (auto it = coinVector.begin(); it != coinVector.end(); )
-		{
-			if (it->getSprite().get() == collidedCoin->getSprite().get())
-			{
-				it = coinVector.erase(it);
-			}
-			else
-			{
-				++it;
-			}
-		}
+		coinVector.erase(
+			std::remove_if(coinVector.begin(), coinVector.end(),
+				[&](const Coins& c) {
+					return c.getSprite().get() == collidedCoin->getSprite().get();
+				}),
+			coinVector.end()
+		);
 	}
 	hitbox.setPosition({ x, y });
 	shadow.setPosition({ x+dashDistance-20, y });
