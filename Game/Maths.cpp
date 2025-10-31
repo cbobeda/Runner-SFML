@@ -125,6 +125,7 @@ int main()
             playing = false;
             window.clear();
             instruction.setString("Press escape to leave or middle click to restart");
+            instruction.setFillColor(sf::Color(255, 255, 255, 255));
             instruction.setPosition(sf::Vector2f(window.getSize().x / 2 - instruction.getLocalBounds().size.x / 2, window.getSize().y / 2 - instruction.getLocalBounds().size.y / 2 + 100));
             window.draw(instruction);
             window.draw(death);
